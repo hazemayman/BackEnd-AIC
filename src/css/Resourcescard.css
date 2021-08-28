@@ -1,0 +1,21 @@
+.card {
+  position: relative;
+  width: 100%;
+  margin: auto auto;
+  padding: auto auto;
+  text-align: center;
+  display: flex;
+}
+
+#magenta {
+  color: rgb(83, 13, 83);
+  background-color: rgb(255, 0, 106, 0.9);
+}
+#green {
+  color: rgb(10, 48, 11);
+  background-color: rgb(15, 97, 18, 10);
+}
+#green {
+  color: rgb(10, 48, 11);
+  background-color: rgb(15, 97, 18, 10);
+}
