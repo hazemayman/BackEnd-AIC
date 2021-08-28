@@ -124,7 +124,7 @@ def main(sent_folder_dir, shape_base_path, output_path):
         i += 1
         input_path = os.path.join(sent_folder_dir, name)
         date = input_path.split('_')[-1]
-        band4_bath = glob.glob(os.path.join(input_path, '*B04.tif'))
+        band4_bath = glob.glob(os.path.join(input_path, '*B04.jp2'))
         band4_bath = band4_bath[0]
         print(band4_bath)
         geo_info = create_extended_shape_file(band4_bath, masks)

@@ -309,7 +309,6 @@ def Get_all_Resorces():
     return flask.jsonify(data)
 
 
-
 @app.route("/predict" , methods=["POST"])
 def predict():
     config = request.form.get("config")
@@ -327,13 +326,14 @@ def predict():
     print("temp_directory",temp_directory)
 
 
-    cmdString = "python run.py" + " --config " + config + " --checkpoint_file " + checkpoint_file + " --bands_dir " + bands_dir + " --shape_file_path " + shape_file_path + " --results_path " + results_path + " --temp_directory " + temp_directory
-    print(cmdString)
+    # cmdString = "python run.py" + " --config " + config + " --checkpoint_file " + checkpoint_file + " --bands_dir " + bands_dir + " --shape_file_path " + shape_file_path + " --results_path " + results_path + " --temp_directory " + temp_directory
+    # print(cmdString)
     #os.chdir("/home/developer-5/Desktop/agri-react/api/predict")    
     # os.system(cmdString)
     #predict_tile(config,checkpoint_file,bands_dir,shape_file_path,temp_directory,results_path)
     #save file API
     # predict and save file
+    
     t1 = threading.Thread(target = lambda:\
         predict_and_call_backend(config,checkpoint_file,\
                                 bands_dir,shape_file_path,\
@@ -348,7 +348,6 @@ def Get_City_Dates(name):
     for i in mongo.db.shapeFile_classified.find({"name" : name}).sort([("Date" , pymongo.ASCENDING)]):
         Dates.append(i["Date"])
     return flask.jsonify(Dates)
-
 
 @app.route("/date/all" , methods = ["GET"])
 def Get_all_Dates():
@@ -375,7 +374,6 @@ def get_all_governates():
 
     
     return flask.jsonify(names)
-
 
 @app.route("/governorate/<name>" , methods = ["GET"])
 def get_Governate_data(name):
