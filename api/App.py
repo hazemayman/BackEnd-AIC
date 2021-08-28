@@ -210,7 +210,7 @@ def saveData():
             if(retunred_object == None):
                 print("here3")
                 db_response = mongo.db.out_tiles.insert_one({
-                    "path" : str(os.path.join(fullpath , str(Date) , fileName)),
+                    "path" : str(os.path.join(fullpath , str(Date) , fileName + '.tif')),
                     "name" : fileName,
                     "bounds" : bound_data,
                     "date" : str(Date)
@@ -333,7 +333,7 @@ def predict():
     #predict_tile(config,checkpoint_file,bands_dir,shape_file_path,temp_directory,results_path)
     #save file API
     # predict and save file
-    
+
     t1 = threading.Thread(target = lambda:\
         predict_and_call_backend(config,checkpoint_file,\
                                 bands_dir,shape_file_path,\
