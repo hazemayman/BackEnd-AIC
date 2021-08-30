@@ -69,6 +69,19 @@ import threading
 #     resource : {dictionary of resoruces , key is the resource name and the value is the m^2}
 # }
 
+
+def GetInfo(filename):
+    Date = None
+    if(type(filename) is list ):
+        filename.sort()
+        filename = filename[0]
+    match = re.search(r'\d{4}-\d{2}-\d{2}', filename)
+    if(match == None):
+        Date = "NA"
+    else:
+        Date = datetime.strptime(match.group(), '%Y-%m-%d').date()
+    return filename ,Date
+    
 def checkBound(shapeFile_bounds , tile_bounds):
     return  shapeFile_bounds[0] > tile_bounds[0] and \
             shapeFile_bounds[1] > tile_bounds[1] and \
@@ -187,17 +200,12 @@ def saveData():
         fileName = request.form.get("file_name")
         print('-----------------',fileName)
         print('-----------------',classified_path)
-
         fileOperator_path = request.form.get("file_path")
         fullpath = os.path.join(os.getcwd() , classified_path)
-        print('-----------------', fileOperator_path)
-        print('here 0')
+
         FileIsThere = os.path.isfile(fileOperator_path)
-        print("here0.1")
         if(FileIsThere):
-            print("here 1")
-            match = re.search(r'\d{4}-\d{2}-\d{2}', fileName)
-            Date = datetime.strptime(match.group(), '%Y-%m-%d').date()
+            fileName , Date = GetInfo(fileName)
             folderIsThere = os.path.isdir(os.path.join(fullpath , str(Date)))
             if(not(folderIsThere)):
                 os.mkdir(os.path.join(fullpath , str(Date)))
@@ -232,6 +240,9 @@ def saveData():
                             "imgURI" : 'static/imgs/' + i['name']+ ".png"
                         })
 
+
+
+                        # this part for creating the png image will be removed later
                         options_list = [
                             '-ot UInt32',
                             '-of PNG',
@@ -248,7 +259,6 @@ def saveData():
                             path,
                             options=options_string
                         )
-                print("here5")
 
             if(newPath):
                 return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
